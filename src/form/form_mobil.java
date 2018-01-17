@@ -5,19 +5,79 @@
  */
 package form;
 
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing .table.DefaultTableModel;
 /**
  *
  * @author asus
  */
 public class form_mobil extends javax.swing.JFrame {
-
+    private Connection con;
+    private Statement st;
+    private ResultSet rsMobil;
+    private String sql="";
+    
+    private String id, mobil, merk, bm, status;
+    private int harga;
     /**
      * Creates new form form_mobil
      */
     public form_mobil() {
         initComponents();
+        koneksiMobil();
+        tampilData(sql);
     }
-
+    
+    private void koneksiMobil(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_rental_mobil", "root", "");
+            System.out.println("Koneksi berhasil");
+            JOptionPane.showMessageDialog(null, "Good job");
+        } catch (Exception e) {
+            System.out.println("Koneksi gagal \n"+e);
+        }
+    }
+    
+    private void bersihData(){
+        t_idMobil.setText("");
+        t_namaMobil.setText("");
+        t_merkMobil.setText("");
+        t_bm.setText("");
+        t_hargaSewa.setText("");
+        
+    }
+    
+    private void tampilData(String sql) {
+        DefaultTableModel datalist = new DefaultTableModel();
+        datalist.addColumn("No");
+        datalist.addColumn("Id Mobil");
+        datalist.addColumn("Nama Mobil");
+        datalist.addColumn("Merk Mobil");
+        datalist.addColumn("Bm Mobil");
+        datalist.addColumn("Harga Sewa");
+        datalist.addColumn("Status");
+        try {
+            int i = 1;
+            st=con.createStatement();
+            rsMobil=st.executeQuery("select * from tb_mobil");
+            while (rsMobil.next())
+                datalist.addRow(new Object[]{
+                    (""+i++),
+                        rsMobil.getString(1), rsMobil.getString(2),
+                        rsMobil.getString(3), rsMobil.getString(4),
+                        rsMobil.getString(5), rsMobil.getString(6),
+                });
+            tb_mobil.setModel(datalist);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal menampilkan \n"+e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,18 +93,18 @@ public class form_mobil extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         t_idMobil = new javax.swing.JTextField();
-        cbb_a = new javax.swing.JComboBox<>();
+        cbb_status = new javax.swing.JComboBox<>();
         b_simpan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_mobil = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        t_namaMobil = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        t_merkMobil = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        t_bm = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        t_hargaSewa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -72,10 +132,10 @@ public class form_mobil extends javax.swing.JFrame {
 
         jLabel1.setText("Id Mobil");
 
-        cbb_a.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pilih", "ready", "dll" }));
-        cbb_a.addActionListener(new java.awt.event.ActionListener() {
+        cbb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pilih", "ready", "dll" }));
+        cbb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbb_aActionPerformed(evt);
+                cbb_statusActionPerformed(evt);
             }
         });
 
@@ -101,9 +161,9 @@ public class form_mobil extends javax.swing.JFrame {
 
         jLabel2.setText("Nama Mobil");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        t_namaMobil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                t_namaMobilActionPerformed(evt);
             }
         });
 
@@ -162,12 +222,12 @@ public class form_mobil extends javax.swing.JFrame {
                                         .addComponent(jButton3)
                                         .addGap(28, 28, 28)
                                         .addComponent(jButton4))
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)
+                                    .addComponent(t_bm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                                    .addComponent(t_merkMobil)
+                                    .addComponent(t_namaMobil)
                                     .addComponent(t_idMobil)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbb_a, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(t_hargaSewa, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -182,23 +242,23 @@ public class form_mobil extends javax.swing.JFrame {
                             .addComponent(t_idMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_namaMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_merkMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(t_bm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_hargaSewa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbb_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -254,9 +314,9 @@ public class form_mobil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbb_aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_aActionPerformed
+    private void cbb_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_statusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbb_aActionPerformed
+    }//GEN-LAST:event_cbb_statusActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -264,11 +324,40 @@ public class form_mobil extends javax.swing.JFrame {
 
     private void b_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_simpanActionPerformed
         // TODO add your handling code here:
+        id=String.valueOf(t_idMobil.getText());
+        mobil=String.valueOf(t_namaMobil.getText());
+        merk=String.valueOf(t_merkMobil.getText());
+        bm=String.valueOf(t_bm.getText());
+        harga=Integer.parseInt(t_hargaSewa.getText());
+        status=String.valueOf(cbb_status.getSelectedItem());
+        if (cbb_status.getSelectedItem().equals("pilih")){
+            JOptionPane.showMessageDialog(null, "MAAF STATUS BELUM TERPILIH");
+        }
+        else if (cbb_status.getSelectedItem().equals("dll")){
+            JOptionPane.showMessageDialog(null, "MAAF MOBIL SUDAH DIRENTAL");
+        }else {
+        try {
+            sql="INSERT INTO tb_mobil(id_mobil, nama_mobil, "
+                    + "merk_mobil,bm_mobil, harga_sewa, "
+                    + "status)value "
+                    + "('"+ id +"','"+ mobil +"','"+ merk +"','"+ bm +"',"
+                    + "'"+ harga +"','"+ status +"')";
+            st=con.createStatement();
+            st.execute(sql);
+            
+            tampilData(sql);
+            JOptionPane.showMessageDialog(null, 
+                    "Data Berhasil Disimpan");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, 
+                    "Data Gagal Disimpan \n"+e.getMessage());
+        }
+    }
     }//GEN-LAST:event_b_simpanActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void t_namaMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaMobilActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_t_namaMobilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,7 +396,7 @@ public class form_mobil extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_simpan;
-    private javax.swing.JComboBox<String> cbb_a;
+    private javax.swing.JComboBox<String> cbb_status;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -332,11 +421,11 @@ public class form_mobil extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField t_bm;
+    private javax.swing.JTextField t_hargaSewa;
     private javax.swing.JTextField t_idMobil;
+    private javax.swing.JTextField t_merkMobil;
+    private javax.swing.JTextField t_namaMobil;
     private javax.swing.JTable tb_mobil;
     // End of variables declaration//GEN-END:variables
 }
