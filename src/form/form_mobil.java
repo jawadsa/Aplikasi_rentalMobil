@@ -22,7 +22,7 @@ public class form_mobil extends javax.swing.JFrame {
     private ResultSet rsMobil;
     private String sql="";
     
-    private String id, mobil, merk, bm, status;
+    private String id, mobil, merk, plat, status;
     private int harga;
     /**
      * Creates new form form_mobil
@@ -38,7 +38,7 @@ public class form_mobil extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_rental_mobil", "root", "");
             System.out.println("Koneksi berhasil");
-            JOptionPane.showMessageDialog(null, "Good job");
+            JOptionPane.showMessageDialog(null, "Anda akan masuk ke form mobil");
         } catch (Exception e) {
             System.out.println("Koneksi gagal \n"+e);
         }
@@ -48,7 +48,7 @@ public class form_mobil extends javax.swing.JFrame {
         t_idMobil.setText("");
         t_namaMobil.setText("");
         t_merkMobil.setText("");
-        t_bm.setText("");
+        t_plat.setText("");
         t_hargaSewa.setText("");
         
     }
@@ -59,7 +59,7 @@ public class form_mobil extends javax.swing.JFrame {
         datalist.addColumn("Id Mobil");
         datalist.addColumn("Nama Mobil");
         datalist.addColumn("Merk Mobil");
-        datalist.addColumn("Bm Mobil");
+        datalist.addColumn("Plat Mobil");
         datalist.addColumn("Harga Sewa");
         datalist.addColumn("Status");
         try {
@@ -91,34 +91,35 @@ public class form_mobil extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        t_idMobil = new javax.swing.JTextField();
         cbb_status = new javax.swing.JComboBox<>();
+        b_keluar = new javax.swing.JButton();
+        t_hargaSewa = new javax.swing.JTextField();
+        t_merkMobil = new javax.swing.JTextField();
         b_simpan = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        b_batal = new javax.swing.JButton();
+        t_plat = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        t_namaMobil = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        b_edit = new javax.swing.JButton();
+        t_idMobil = new javax.swing.JTextField();
+        b_hapus = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_mobil = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        t_namaMobil = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        t_merkMobil = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        t_bm = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        t_hargaSewa = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
-        jMenu9 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -130,12 +131,23 @@ public class form_mobil extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tambah Data Mobil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 18))); // NOI18N
+        jPanel2.setFocusTraversalPolicyProvider(true);
+
         jLabel1.setText("Id Mobil");
 
-        cbb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "pilih", "ready", "dll" }));
+        cbb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Siap", "Belum Siap" }));
         cbb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbb_statusActionPerformed(evt);
+            }
+        });
+
+        b_keluar.setText("Keluar");
+        b_keluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_keluarActionPerformed(evt);
             }
         });
 
@@ -146,20 +158,16 @@ public class form_mobil extends javax.swing.JFrame {
             }
         });
 
-        tb_mobil.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID MOBIL", "NAMA MOBIL", "MERK MOBIL", "BM MOBIL", "HARGA SEWA", "STATUS"
-            }
-        ));
-        jScrollPane1.setViewportView(tb_mobil);
+        jLabel6.setText("Status");
 
-        jLabel2.setText("Nama Mobil");
+        b_batal.setText("Batal");
+        b_batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_batalActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Plat Mobil");
 
         t_namaMobil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,26 +175,140 @@ public class form_mobil extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Merk Mobil");
+        jLabel2.setText("Nama Mobil");
 
-        jLabel4.setText("Bm Mobil");
-
-        jLabel5.setText("Harga Sewa");
-
-        jLabel6.setText("Status");
-
-        jButton1.setText("Batal");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        b_edit.setText("Edit");
+        b_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                b_editActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Edit");
+        t_idMobil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_idMobilActionPerformed(evt);
+            }
+        });
+        t_idMobil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                t_idMobilKeyPressed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        b_hapus.setText("Hapus");
+        b_hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_hapusActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Keluar");
+        jLabel5.setText("Harga Sewa");
+
+        jLabel3.setText("Merk Mobil");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_plat)
+                            .addComponent(t_merkMobil)
+                            .addComponent(t_namaMobil)
+                            .addComponent(t_idMobil)
+                            .addComponent(t_hargaSewa, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(b_simpan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_batal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b_keluar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(t_idMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_simpan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t_namaMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(b_batal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t_merkMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(b_edit))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(t_plat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(b_hapus)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(t_hargaSewa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(b_keluar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        tb_mobil.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "NO", "ID MOBIL", "NAMA MOBIL", "MERK MOBIL", "PLAT MOBIL", "HARGA SEWA", "STATUS"
+            }
+        ));
+        jScrollPane1.setViewportView(tb_mobil);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/JOYRENT-MASCOTTE_1_200x160.png"))); // NOI18N
 
@@ -195,108 +317,59 @@ public class form_mobil extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(57, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(b_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jButton3)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jButton4))
-                                    .addComponent(t_bm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                                    .addComponent(t_merkMobil)
-                                    .addComponent(t_namaMobil)
-                                    .addComponent(t_idMobil)
-                                    .addComponent(t_hargaSewa, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(t_idMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_namaMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_merkMobil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(t_bm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(t_hargaSewa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(b_simpan)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)))
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu3.setText("Master");
 
-        jMenu6.setText("Mobil");
-        jMenu3.add(jMenu6);
+        jMenuItem1.setText("Mobil");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
 
-        jMenu7.setText("Penyewa");
-        jMenu3.add(jMenu7);
+        jMenuItem2.setText("Penyewa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
 
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Transaksi");
 
-        jMenu8.setText("Rental");
-        jMenu4.add(jMenu8);
+        jMenuItem3.setText("Sewa");
+        jMenu4.add(jMenuItem3);
 
-        jMenu9.setText("Pengembalian");
-        jMenu4.add(jMenu9);
+        jMenuItem4.setText("Kembali");
+        jMenu4.add(jMenuItem4);
 
         jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("Keluar");
-        jMenuBar2.add(jMenu5);
 
         setJMenuBar(jMenuBar2);
 
@@ -308,7 +381,9 @@ public class form_mobil extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,29 +393,30 @@ public class form_mobil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbb_statusActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void b_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_batalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        bersihData();
+    }//GEN-LAST:event_b_batalActionPerformed
 
     private void b_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_simpanActionPerformed
         // TODO add your handling code here:
         id=String.valueOf(t_idMobil.getText());
         mobil=String.valueOf(t_namaMobil.getText());
         merk=String.valueOf(t_merkMobil.getText());
-        bm=String.valueOf(t_bm.getText());
+        plat=String.valueOf(t_plat.getText());
         harga=Integer.parseInt(t_hargaSewa.getText());
         status=String.valueOf(cbb_status.getSelectedItem());
         if (cbb_status.getSelectedItem().equals("pilih")){
-            JOptionPane.showMessageDialog(null, "MAAF STATUS BELUM TERPILIH");
+            JOptionPane.showMessageDialog(null, "Ooopss status belum dipilih");
         }
         else if (cbb_status.getSelectedItem().equals("dll")){
-            JOptionPane.showMessageDialog(null, "MAAF MOBIL SUDAH DIRENTAL");
+            JOptionPane.showMessageDialog(null, "Maaf mobil sudah disewakan");
         }else {
         try {
             sql="INSERT INTO tb_mobil(id_mobil, nama_mobil, "
-                    + "merk_mobil,bm_mobil, harga_sewa, "
+                    + "merk_mobil,plat_mobil, harga_sewa, "
                     + "status)value "
-                    + "('"+ id +"','"+ mobil +"','"+ merk +"','"+ bm +"',"
+                    + "('"+ id +"','"+ mobil +"','"+ merk +"','"+plat +"',"
                     + "'"+ harga +"','"+ status +"')";
             st=con.createStatement();
             st.execute(sql);
@@ -358,6 +434,97 @@ public class form_mobil extends javax.swing.JFrame {
     private void t_namaMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaMobilActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_namaMobilActionPerformed
+
+    private void t_idMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_idMobilActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_t_idMobilActionPerformed
+
+    private void t_idMobilKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_idMobilKeyPressed
+        // TODO add your handling code here:
+        id=t_idMobil.getText();
+        int tekanenter=evt.getKeyCode();
+        if (tekanenter==10){
+            try {
+                sql="select * from tb_mobil "
+                        + "where id_mobil='"+ id +"'";
+                st=con.createStatement();
+                rsMobil=st.executeQuery(sql);
+                while (rsMobil.next()){
+                    t_namaMobil.setText(rsMobil.getString("nama_mobil"));
+                    t_merkMobil.setText(rsMobil.getString(3));
+                    t_plat.setText(rsMobil.getString(4));
+                    t_hargaSewa.setText(rsMobil.getString(5));
+                    cbb_status.setSelectedItem(rsMobil.getString(6));
+                    JOptionPane.showMessageDialog(null, "Data Ditemukan");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Gak Ketemu \n"
+                    +e.getMessage());
+                t_namaMobil.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_t_idMobilKeyPressed
+
+    private void b_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_editActionPerformed
+        // TODO add your handling code here:
+        id=String.valueOf(t_idMobil.getText());
+        mobil=String.valueOf(t_namaMobil.getText());
+        merk=String.valueOf(t_merkMobil.getText());
+        plat=String.valueOf(t_plat.getText());
+        harga=Integer.parseInt(t_hargaSewa.getText());
+        status=String.valueOf(cbb_status.getSelectedItem());
+        try {
+            sql="update tb_mobil set nama_mobil='"+ mobil +"',merk_mobil='"+ merk +"',plat_mobil='"+ plat +"',harga_sewa='"+ harga +"',status='"+ status +"' where id_mobil = '"+ id +"'";
+            st=con.createStatement();
+            st.execute(sql);
+            bersihData();
+            tampilData(sql);
+            JOptionPane.showMessageDialog(null, "Data Berhasil di Edit");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Edit \n"+e.getMessage());
+        }
+    }//GEN-LAST:event_b_editActionPerformed
+
+    private void b_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_hapusActionPerformed
+        // TODO add your handling code here:
+        id=String.valueOf(t_idMobil.getText());
+        try {
+            sql="DELETE FROM tb_mobil"
+                    +" where id_mobil='"+ id +"'";
+            st=con.createStatement();
+            st.execute(sql);
+            bersihData();
+            tampilData(sql);
+            JOptionPane.showMessageDialog(null, 
+                    "Data Berhasil Dihapus");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Dihapus \n"+e.getMessage());
+        }
+    }//GEN-LAST:event_b_hapusActionPerformed
+
+    private void b_keluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_keluarActionPerformed
+        // TODO add your handling code here:
+        String ObjButtons[] = {"Yes","No"};
+        int pilihan = JOptionPane.showOptionDialog(null,"Apakah Anda Yakin Ingin keluar ?","Message",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[1]);
+        if(pilihan == 0){
+            System.exit(0);
+        }
+    }//GEN-LAST:event_b_keluarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        form_mobil m=new form_mobil();
+        m.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        form_penyewa m=new form_penyewa();
+        m.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -395,12 +562,12 @@ public class form_mobil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton b_batal;
+    private javax.swing.JButton b_edit;
+    private javax.swing.JButton b_hapus;
+    private javax.swing.JButton b_keluar;
     private javax.swing.JButton b_simpan;
     private javax.swing.JComboBox<String> cbb_status;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -412,20 +579,21 @@ public class form_mobil extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField t_bm;
     private javax.swing.JTextField t_hargaSewa;
     private javax.swing.JTextField t_idMobil;
     private javax.swing.JTextField t_merkMobil;
     private javax.swing.JTextField t_namaMobil;
+    private javax.swing.JTextField t_plat;
     private javax.swing.JTable tb_mobil;
     // End of variables declaration//GEN-END:variables
 }
