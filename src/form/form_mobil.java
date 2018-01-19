@@ -128,6 +128,7 @@ public class form_mobil extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Form Tambah Data Mobil");
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -226,8 +227,8 @@ public class form_mobil extends javax.swing.JFrame {
                             .addComponent(t_plat)
                             .addComponent(t_merkMobil)
                             .addComponent(t_namaMobil)
-                            .addComponent(t_idMobil)
-                            .addComponent(t_hargaSewa, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(t_hargaSewa, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                            .addComponent(t_idMobil)))
                     .addComponent(jLabel4))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -282,13 +283,13 @@ public class form_mobil extends javax.swing.JFrame {
 
         tb_mobil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NO", "ID MOBIL", "NAMA MOBIL", "MERK MOBIL", "PLAT MOBIL", "HARGA SEWA", "STATUS"
+                "ID MOBIL", "NAMA MOBIL", "MERK MOBIL", "PLAT MOBIL", "HARGA SEWA", "STATUS"
             }
         ));
         jScrollPane1.setViewportView(tb_mobil);
@@ -299,7 +300,7 @@ public class form_mobil extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -322,7 +323,7 @@ public class form_mobil extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -337,8 +338,8 @@ public class form_mobil extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenu3.setText("Master");
@@ -364,6 +365,11 @@ public class form_mobil extends javax.swing.JFrame {
         jMenu4.setText("Transaksi");
 
         jMenuItem3.setText("Sewa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuItem4.setText("Kembali");
@@ -381,9 +387,7 @@ public class form_mobil extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -409,7 +413,7 @@ public class form_mobil extends javax.swing.JFrame {
         if (cbb_status.getSelectedItem().equals("pilih")){
             JOptionPane.showMessageDialog(null, "Ooopss status belum dipilih");
         }
-        else if (cbb_status.getSelectedItem().equals("dll")){
+        else if (cbb_status.getSelectedItem().equals("Belum Siap")){
             JOptionPane.showMessageDialog(null, "Maaf mobil sudah disewakan");
         }else {
         try {
@@ -421,6 +425,7 @@ public class form_mobil extends javax.swing.JFrame {
             st=con.createStatement();
             st.execute(sql);
             
+            bersihData();
             tampilData(sql);
             JOptionPane.showMessageDialog(null, 
                     "Data Berhasil Disimpan");
@@ -525,6 +530,13 @@ public class form_mobil extends javax.swing.JFrame {
         m.setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        form_rental m=new form_rental();
+        m.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

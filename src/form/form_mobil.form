@@ -54,6 +54,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sewa"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
@@ -67,6 +70,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Form Tambah Data Mobil"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar2"/>
@@ -88,15 +92,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -111,13 +112,13 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel3" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="73" max="32767" attributes="0"/>
                           <Component id="jLabel8" min="-2" pref="254" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -139,8 +140,8 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jPanel3" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -184,8 +185,8 @@
                                   <Component id="t_plat" alignment="0" max="32767" attributes="0"/>
                                   <Component id="t_merkMobil" alignment="0" max="32767" attributes="0"/>
                                   <Component id="t_namaMobil" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="t_hargaSewa" alignment="0" pref="251" max="32767" attributes="0"/>
                                   <Component id="t_idMobil" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="t_hargaSewa" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -376,7 +377,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="779" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -402,8 +403,7 @@
                 <Component class="javax.swing.JTable" name="tb_mobil">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="4">
-                        <Column editable="true" title="NO" type="java.lang.Object"/>
+                      <Table columnCount="6" rowCount="4">
                         <Column editable="true" title="ID MOBIL" type="java.lang.Object"/>
                         <Column editable="true" title="NAMA MOBIL" type="java.lang.Object"/>
                         <Column editable="true" title="MERK MOBIL" type="java.lang.Object"/>
