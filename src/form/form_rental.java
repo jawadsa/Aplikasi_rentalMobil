@@ -483,6 +483,11 @@ public class form_rental extends javax.swing.JFrame {
         jMenu4.add(jMenuItem3);
 
         jMenuItem4.setText("Kembali");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem4);
 
         jMenuBar2.add(jMenu4);
@@ -761,7 +766,11 @@ public class form_rental extends javax.swing.JFrame {
 
     private void BTN_KELUARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTN_KELUARActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        String ObjButtons[] = {"Yes","No"};
+        int pilihan = JOptionPane.showOptionDialog(null,"Apakah Anda Yakin Ingin keluar ?","Message",JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,ObjButtons,ObjButtons[1]);
+        if(pilihan == 0){
+            System.exit(0);
+        }
     }//GEN-LAST:event_BTN_KELUARActionPerformed
 
     private void tanggalrentalPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tanggalrentalPropertyChange
@@ -854,6 +863,13 @@ public class form_rental extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jLabel1KeyPressed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        form_pengembalian m=new form_pengembalian();
+        m.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
